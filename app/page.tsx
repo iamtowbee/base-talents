@@ -1,11 +1,18 @@
+"use client";
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { IoSearchOutline } from "react-icons/io5";
 import CreateBountyModal from "@/components/CreateBountyModal";
 import BountyCard from "@/components/BountyCard";
+import { Bounty } from "@/models/Bounty";
+import { useBounties } from "@/hooks/use-bounties";
 
 export default function Home() {
+  const { data: bounties, loading, error } = useBounties();
+
+  if (loading) return <div>Loading...</div>; // Loading state
+  if (error) return <div>Error: {error}</div>; // Error state
+
   return (
     <main className="h-screen pt-28">
       <div className="container mx-auto h-full bg-white pt-8 xl:max-w-screen-lg">
@@ -37,10 +44,19 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col py-6 gap-2">
-          <BountyCard />
-          <BountyCard />
-          <BountyCard />
-          <BountyCard />
+          <h1 className="text-2xl font-semibold">Bounties</h1>
+          {bounties.map((bounty: Bounty) => {
+            return (
+              <BountyCard
+                key={bounty._id as unknown as string}
+                task={bounty.task}
+                endsOn={bounty.endsOn}
+                rewardAmount={bounty.rewardAmount}
+                rewardToken={bounty.rewardToken}
+                createdAt={bounty.createdAt}
+              />
+            );
+          })}
         </div>
       </div>
     </main>

@@ -1,8 +1,16 @@
+"use client";
+
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 import { BiSolidComment } from "react-icons/bi";
+import { Bounty } from "@/models/Bounty"; // Import the Bounty interface
 
-const BountyCard = () => {
+const BountyCard: React.FC<Bounty> = ({
+  task,
+  rewardAmount,
+  rewardToken,
+  endsOn,
+}) => {
   return (
     <div className="p-6 flex items-center justify-between rounded-lg hover:cursor-pointer hover:bg-gray-100">
       <div className="flex justify-between items-start gap-4">
@@ -10,7 +18,7 @@ const BountyCard = () => {
         <div className="flex flex-col justify-center gap-1">
           <div className="flex flex-col">
             <div className="text-lg font-medium text-primary line-clamp-1 overflow-ellipsis leading-tight hover:underline max-w-md">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              {task}
             </div>
             <div className="text-sm text-muted-foreground">Lorem ipsum</div>
           </div>
@@ -25,7 +33,7 @@ const BountyCard = () => {
               </p>
             </div>
             <p className="text-xs font-medium px-3.5 text-neutral-500">
-              Due in <span>[TIME]</span>
+              Due in <span>{endsOn!.toLocaleDateString()}</span>
             </p>
             <p className="text-xs font-medium pl-3.5 text-neutral-500 flex items-center justify-center gap-1">
               <BiSolidComment className="text-muted-foreground" />0
@@ -35,8 +43,10 @@ const BountyCard = () => {
       </div>
       <div className="flex items-center gap-1">
         <Icon fontSize={20} icon="cryptocurrency-color:usdc" />
-        <p className="text-lg font-semibold text-primary">$50</p>
-        <span className="text-muted-foreground font-medium text-sm">USDC</span>
+        <p className="text-lg font-semibold text-primary">${rewardAmount}</p>
+        <span className="text-muted-foreground font-medium text-sm">
+          {rewardToken}
+        </span>
       </div>
     </div>
   );
