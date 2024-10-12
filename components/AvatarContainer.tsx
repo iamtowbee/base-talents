@@ -26,7 +26,7 @@ const AvatarContainer = () => {
   const disableLogin = !ready || (ready && authenticated);
 
   return (
-    <div className="absolute top-2 right-2 flex gap-2 items-center justify-between px-2 py-2">
+    <div className="flex gap-2 items-center justify-between px-2">
       {ready && authenticated ? (
         <Popover>
           <p className="text-sm font-semibold text-primary/80">$0</p>

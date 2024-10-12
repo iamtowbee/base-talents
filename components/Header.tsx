@@ -9,34 +9,18 @@ import AvatarContainer from "@/components/AvatarContainer";
 // import Image from "next/image";
 
 const Header = () => {
-  const [top, setTop] = useState(true);
-  const pathName = usePathname();
-
-  const scrollHandler = () => {
-    window.scrollY >= 15 ? setTop(false) : setTop(true);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", scrollHandler);
-    return () => window.removeEventListener("scroll", scrollHandler);
-  }, [top]);
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 py-8 xl:py-12 bg-white text-primary z-10 transition-shadow duration-400 ${
-        top ? "border-b border-accent/15" : "shadow-md"
-      }`}
+      className={`fixed top-0 left-0 right-0 py-8 bg-background text-primary z-10 container flex justify-between items-center`}
     >
-      <div
-        className={`container mx-auto flex flex-col gap-4 items-center justify-center ${
-          !top && "pt-8"
-        } transition-all duration-500 ease-in-out`}
-      >
-        {/* logo */}
-        <Link href="/">
-          <h1 className="text-4xl font-extrabold">
-            Base Pathner
-            {/* {!top ? (
+      {/* logo */}
+      <Link href="/">
+        <h1 className="font-bold text-2xl flex items-center gap-2 uppercase">
+          <span className="bg-primary text-white  w-10 h-10 rounded-full flex items-center justify-center">
+            P
+          </span>{" "}
+          <p className="hidden sm:block">Pathner</p>
+          {/* {!top ? (
                 <Image
                   src={FindoutMonogram}
                   alt="Findout Logo"
@@ -51,17 +35,22 @@ const Header = () => {
                   width={48}
                 />
               )} */}
-            {/* <Image
+          {/* <Image
                 src={FindoutLogo}
                 alt="Findout Logo"
                 height={48}
                 width={48}
               /> */}
-          </h1>
-        </Link>
+        </h1>
+      </Link>
 
-        <AvatarContainer />
+      <div className="flex items-center justify-between gap-2">
+        <Link href="#">Bounties</Link>
+        <span className="text-muted-foreground/80">&#183;</span>
+        <Link href="#">Subscribe</Link>
       </div>
+
+      <AvatarContainer />
     </header>
   );
 };

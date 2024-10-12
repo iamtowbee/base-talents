@@ -9,7 +9,8 @@ import Link from "next/link";
 
 const BountyCard: React.FC<Bounty> = ({
   _id,
-  task,
+  title,
+  details,
   rewardAmount,
   rewardToken,
   endsOn,
@@ -20,15 +21,15 @@ const BountyCard: React.FC<Bounty> = ({
 
   return (
     <Link href={`/bounties/${_id}`} passHref>
-      <div className="p-6 flex items-center justify-between rounded-lg hover:cursor-pointer hover:bg-gray-100">
+      <div className="p-6 flex items-center justify-between rounded-lg hover:cursor-pointer hover:bg-[#111111]/70">
         <div className="flex justify-between items-start gap-4">
           <div className="bg-gray-300 w-16 h-16 rounded-xl"></div>
           <div className="flex flex-col justify-center gap-1">
             <div className="flex flex-col">
               <div className="text-lg font-medium text-primary line-clamp-1 overflow-ellipsis leading-tight hover:underline max-w-md">
-                {task}
+                {title}
               </div>
-              <div className="text-sm text-muted-foreground">Lorem ipsum</div>
+              <div className="text-sm text-muted-foreground">{details}</div>
             </div>
             <div className="flex items-center justify-start divide-x divide-neutral-300">
               <div className="flex items-center justify-center gap-1.5">
@@ -56,7 +57,9 @@ const BountyCard: React.FC<Bounty> = ({
               iconFound ? rewardToken.toLowerCase() : "generic"
             }`}
           />
-          <p className="text-lg font-semibold text-primary">${rewardAmount}</p>
+          <p className="text-lg font-semibold text-primary ml-1">
+            {rewardAmount}
+          </p>
           <span className="text-muted-foreground font-medium text-sm">
             {rewardToken}
           </span>

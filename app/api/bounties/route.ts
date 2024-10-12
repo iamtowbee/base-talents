@@ -25,10 +25,11 @@ export async function POST(request: Request) {
     const db = client.db("bountyApp");
 
     const body = await request.json();
-    const { task, rewardAmount, rewardToken, endsOn } = body;
+    const { title, details, rewardAmount, rewardToken, endsOn } = body;
 
     const bounty = createBounty({
-      task,
+      title,
+      details,
       rewardAmount: parseFloat(rewardAmount),
       rewardToken,
       endsOn: new Date(endsOn),

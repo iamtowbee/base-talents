@@ -44,7 +44,8 @@ export default function CreateBountyModal() {
 
     const formData = new FormData(event.currentTarget);
     const bountyData = {
-      task: formData.get("task") as string,
+      title: formData.get("title") as string,
+      details: formData.get("details") as string,
       rewardAmount: formData.get("reward-amount") as string,
       rewardToken: formData.get("reward-token") as string,
       endsOn: date?.toISOString(),
@@ -96,34 +97,48 @@ export default function CreateBountyModal() {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="task">Task</Label>
+            <Label htmlFor="task">Title</Label>
             <Input
-              id="task"
-              name="task"
+              id="title"
+              name="title"
               placeholder="Enter task description"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="reward-amount">Reward Amount</Label>
+            <Label htmlFor="task">Bounty Details</Label>
             <Input
-              id="reward-amount"
-              name="reward-amount"
-              type="number"
-              placeholder="Enter reward amount"
+              id="details"
+              name="details"
+              placeholder="Enter task description"
               required
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="reward-token">Reward Token</Label>
-            <Input
-              id="reward-token"
-              name="reward-token"
-              placeholder="Enter reward token"
-              className="placeholder:normal-case uppercase"
-              required
-            />
+          <div className="space-y-0 flex items-center justify-between gap-4">
+            <div>
+              <Label htmlFor="reward-amount">Reward Amount</Label>
+              <Input
+                id="reward-amount"
+                name="reward-amount"
+                type="number"
+                placeholder="Enter reward amount"
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="reward-token">Reward Token</Label>
+              <Input
+                id="reward-token"
+                name="reward-token"
+                placeholder="Enter reward token"
+                className="placeholder:normal-case uppercase"
+                required
+              />
+            </div>
           </div>
+          {/* <div className="space-y-2">
+            
+          </div> */}
           <div className="space-y-2">
             <Label htmlFor="ends-on">Ends On</Label>
             <Popover>

@@ -2,7 +2,8 @@ import { ObjectId } from "mongodb";
 
 export interface Bounty {
   _id?: ObjectId | string;
-  task: string;
+  title: string;
+  details: string;
   rewardAmount: number;
   rewardToken: string;
   endsOn: Date;
