@@ -7,7 +7,7 @@ type Props = { children: ReactNode };
 function Providers({ children }: Props) {
   return (
     <PrivyProvider
-      appId="cm23ss70600212ot23gcgtp3z"
+      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
       config={{
         // Customize Privy's appearance in your app
         appearance: {
