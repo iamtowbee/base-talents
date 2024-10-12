@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon, iconExists } from "@iconify/react/dist/iconify.js";
 import React from "react";
 import { BiSolidComment } from "react-icons/bi";
 import { Bounty } from "@/models/Bounty"; // Import the Bounty interface
@@ -14,6 +14,10 @@ const BountyCard: React.FC<Bounty> = ({
   rewardToken,
   endsOn,
 }) => {
+  const iconFound: boolean = iconExists(
+    `cryptocurrency-color:${rewardToken.toLowerCase()}`
+  );
+
   return (
     <Link href={`/bounties/${_id}`} passHref>
       <div className="p-6 flex items-center justify-between rounded-lg hover:cursor-pointer hover:bg-gray-100">
@@ -46,7 +50,12 @@ const BountyCard: React.FC<Bounty> = ({
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <Icon fontSize={20} icon="cryptocurrency-color:usdc" />
+          <Icon
+            fontSize={20}
+            icon={`cryptocurrency-color:${
+              iconFound ? rewardToken.toLowerCase() : "generic"
+            }`}
+          />
           <p className="text-lg font-semibold text-primary">${rewardAmount}</p>
           <span className="text-muted-foreground font-medium text-sm">
             {rewardToken}
