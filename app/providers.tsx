@@ -2,9 +2,7 @@
 import { ReactNode } from "react";
 import { PrivyProvider } from "@privy-io/react-auth";
 
-type Props = { children: ReactNode };
-
-function Providers({ children }: Props) {
+function Providers({ children }: { children: ReactNode }) {
   return (
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}

@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 import { BiSolidComment } from "react-icons/bi";
 import { Bounty } from "@/models/Bounty"; // Import the Bounty interface
+import { formatDueDate } from "@/utils/date-format";
 
 const BountyCard: React.FC<Bounty> = ({
   task,
@@ -33,7 +34,7 @@ const BountyCard: React.FC<Bounty> = ({
               </p>
             </div>
             <p className="text-xs font-medium px-3.5 text-neutral-500">
-              Due in <span>{new Date(endsOn).toLocaleDateString()}</span>
+              Due <span>{formatDueDate(endsOn)}</span>
             </p>
             <p className="text-xs font-medium pl-3.5 text-neutral-500 flex items-center justify-center gap-1">
               <BiSolidComment className="text-muted-foreground" />0
