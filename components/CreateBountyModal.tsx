@@ -30,6 +30,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { PathnerABI } from '@/abi/PathnerABI';
+import { PathnerAddress } from '@/abi/PathnerAddress';
 
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
@@ -182,9 +184,37 @@ export default function CreateBountyModal() {
               </PopoverContent>
             </Popover>
           </div>
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Submit Bounty"}
-          </Button>
+          <Transaction
+            contracts={[
+              //contracts params
+              {
+                address: PathnerAddress,
+                abi: PathnerABI,
+                functionName: 'create',
+                  args: answers,
+                },
+              ]}
+              className="w-[450px]"
+              // capabilities={capabilities}
+              chainId={chainId}
+              onError={handleError}
+              onSuccess={handleSuccess} 
+
+              >
+              <TransactionButton
+                className="w-full"
+                disabled={'isSubmitting'}
+                text="submit"
+              // onClick={handleClick}
+              />
+              <TransactionStatus>
+              <TransactionStatusLabel />
+              <TransactionStatusAction />
+              </TransactionStatus>
+            </Transaction> 
+           // <Button type="submit" className="w-full" disabled={isSubmitting}>
+          //  {isSubmitting ? "Creating..." : "Submit Bounty"}
+          // </Button>
         </form>
       </DialogContent>
     </Dialog>
