@@ -49,6 +49,7 @@ export default function Home() {
             return (
               <BountyCard
                 key={bounty._id as unknown as string}
+                _id={bounty._id!.toString()}
                 task={bounty.task}
                 endsOn={bounty.endsOn}
                 rewardAmount={bounty.rewardAmount}

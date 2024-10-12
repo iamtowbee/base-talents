@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export interface Bounty {
-  _id?: ObjectId;
+  _id?: ObjectId | string;
   task: string;
   rewardAmount: number;
   rewardToken: string;

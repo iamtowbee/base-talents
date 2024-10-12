@@ -13,7 +13,7 @@ export const useBounties = (id?: string) => {
       setError(null);
       try {
         const response = await fetch(
-          id ? `/api/bounties/${id}` : "/api/bounties"
+          id ? `/api/bounty/${id}` : "/api/bounties"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch bounties");
