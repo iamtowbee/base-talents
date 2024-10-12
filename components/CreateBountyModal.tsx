@@ -34,6 +34,8 @@ import { useToast } from "@/hooks/use-toast";
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+
   const { toast } = useToast();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,6 +65,8 @@ export default function CreateBountyModal() {
           description: "Your bounty has been successfully created.",
         });
         // Reset form or close modal here
+        setDate(undefined); // Reset date
+        setModalOpen(false); // Close modal
       } else {
         throw new Error(`API response not OK: ${response.text()}`);
       }
@@ -79,7 +83,7 @@ export default function CreateBountyModal() {
   };
 
   return (
-    <Dialog>
+    <Dialog open={modalOpen} onOpenChange={setModalOpen}>
       <DialogTrigger asChild>
         <Button className="whitespace-nowrap">
           <IoAddOutline className="mr-2 h-4 w-4" />
@@ -116,6 +120,7 @@ export default function CreateBountyModal() {
               id="reward-token"
               name="reward-token"
               placeholder="Enter reward token"
+              className="placeholder:normal-case uppercase"
               required
             />
           </div>
