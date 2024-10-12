@@ -33,7 +33,7 @@ const BountyCard: React.FC<Bounty> = ({
               </p>
             </div>
             <p className="text-xs font-medium px-3.5 text-neutral-500">
-              Due in <span>{endsOn!.toLocaleDateString()}</span>
+              Due in <span>{new Date(endsOn).toLocaleDateString()}</span>
             </p>
             <p className="text-xs font-medium pl-3.5 text-neutral-500 flex items-center justify-center gap-1">
               <BiSolidComment className="text-muted-foreground" />0
