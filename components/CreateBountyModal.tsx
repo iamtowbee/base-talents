@@ -29,16 +29,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { PathnerABI } from '@/abi/PathnerABI';
-import { PathnerAddress } from '@/abi/PathnerAddress';
+import { FundAccountButton } "./FundAccountButton";
+import { SubmitButton } "./SubmitButton";
 
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  //const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const { toast } = useToast();
+
+  //TODO
+  // So I want to add the bounty data that are stored in caled in handleSubmit in the components: <FundAccountButton> and  <SubmitButton/> that are in the return statements
+  //Please help me provide them and pass it to the those components. They are 3 variables: reward token (address), reward amount (number) and number of claims (number).
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,6 +86,14 @@ export default function CreateBountyModal() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleError = (err: TransactionError) => {
+    console.error('Transaction error:', err);
+  };
+
+  const handleSuccess = (response: TransactionResponse) => {
+    console.log('Transaction successful', response);
   };
 
   return (
@@ -184,37 +195,10 @@ export default function CreateBountyModal() {
               </PopoverContent>
             </Popover>
           </div>
-          <Transaction
-            contracts={[
-              //contracts params
-              {
-                address: PathnerAddress,
-                abi: PathnerABI,
-                functionName: 'create',
-                  args: answers,
-                },
-              ]}
-              className="w-[450px]"
-              // capabilities={capabilities}
-              chainId={chainId}
-              onError={handleError}
-              onSuccess={handleSuccess} 
-
-              >
-              <TransactionButton
-                className="w-full"
-                disabled={'isSubmitting'}
-                text="submit"
-              // onClick={handleClick}
-              />
-              <TransactionStatus>
-              <TransactionStatusLabel />
-              <TransactionStatusAction />
-              </TransactionStatus>
-            </Transaction> 
-           // <Button type="submit" className="w-full" disabled={isSubmitting}>
-          //  {isSubmitting ? "Creating..." : "Submit Bounty"}
-          // </Button>
+          {/* Include the variables from TODO here
+            <FundAccountButton amount= />
+            <SubmitButton token=  amount=  claims= />
+            */}
         </form>
       </DialogContent>
     </Dialog>
