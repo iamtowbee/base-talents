@@ -29,12 +29,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FundAccountButton } "./FundAccountButton";
-import { SubmitButton } "./SubmitButton";
+import { FundAccount } from "./FundAccount";
+import { SubmitButton } from "./SubmitButton";
 
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
-  //const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const { toast } = useToast();
@@ -86,14 +86,6 @@ export default function CreateBountyModal() {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleError = (err: TransactionError) => {
-    console.error('Transaction error:', err);
-  };
-
-  const handleSuccess = (response: TransactionResponse) => {
-    console.log('Transaction successful', response);
   };
 
   return (
@@ -195,8 +187,9 @@ export default function CreateBountyModal() {
               </PopoverContent>
             </Popover>
           </div>
-          {/* Include the variables from TODO here
-            <FundAccountButton amount= />
+          {/* TODO:  Include the variables from TODO here
+
+            <FundAccount amount= />
             <SubmitButton token=  amount=  claims= />
             */}
         </form>

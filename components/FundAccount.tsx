@@ -15,7 +15,7 @@ import type {
 } from '@coinbase/onchainkit/transaction';
 import type { Address, ContractFunctionParameters } from 'viem';
 
-export default function FundAccountButton({ amount }: { amount: number }) {
+export default function FundAccount({ amount }: { amount: number }) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const contracts = [
@@ -50,7 +50,6 @@ export default function FundAccountButton({ amount }: { amount: number }) {
                 className="w-full"
                 disabled={isSubmitting}
                 text="Fund Account"
-              // onClick={handleClick}
               />
               <TransactionStatus>
               <TransactionStatusLabel />
@@ -60,5 +59,3 @@ export default function FundAccountButton({ amount }: { amount: number }) {
       </div>
     );
 }
-
-export default FundAccountButton;

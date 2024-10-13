@@ -65,5 +65,3 @@ export default function SubmitButton({ token, amount, claims }: SubmitButtonProp
       </div>
     );
 }
-
-export default SubmitButton;
