@@ -29,8 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FundAccount } from "./FundAccount";
-import { SubmitButton } from "./SubmitButton";
+import FundAccount  from "@/components/FundAccount";
+import { SubmitButton } from "@/components/SubmitButton";
 
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
