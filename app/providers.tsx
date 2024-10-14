@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 import { PrivyProvider } from "@privy-io/react-auth";
 import { base } from 'viem/chains';
 import { WagmiProvider } from 'wagmi';
-import { NEXT_PUBLIC_CDP_API_KEY } from '../config';
+import { NEXT_PUBLIC_CDP_API_KEY, NEXT_PUBLIC_PRIVY_APP_ID } from '../config';
 import { useWagmiConfig } from '../wagmi';
 
 type Props = { children: ReactNode };
@@ -18,7 +18,7 @@ function Providers({ children }: Props) {
 
   return (
     <PrivyProvider
-      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
+      appId={NEXT_PUBLIC_PRIVY_APP_ID!}
       config={{
         // Customize Privy's appearance in your app
         appearance: {
