@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
-import { Input } from "@/components/ui/input";
-import { IoSearchOutline } from "react-icons/io5";
+import React, { useEffect } from "react";
 import CreateBountyModal from "@/components/CreateBountyModal";
-import BountyCard from "@/components/BountyCard";
 import { Bounty } from "@/models/Bounty";
 import { useBounties } from "@/hooks/use-bounties";
 import { CgSpinnerAlt } from "react-icons/cg";
 import BountyFullLayout from "@/components/BountyFullLayout";
+import { usePrivy } from "@privy-io/react-auth";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { data: bounties, loading, error } = useBounties();
+  const { data: bounties, loading, error, retry } = useBounties();
+  const { ready } = usePrivy();
 
   if (loading)
     return (
@@ -21,9 +21,12 @@ export default function Home() {
 
   if (error)
     return (
-      <main className="h-screen pt-28 flex items-center justify-center">
+      <main className="h-screen pt-28 flex flex-col items-center justify-center gap-4">
         <h1 className="text-2xl font-bold">Something went wrong.</h1>
-        <p>{error}</p>
+        <p className="text-sm text-red-500 font-semibold">{error}</p>
+        <Button onClick={retry} variant="outline">
+          Retry
+        </Button>
       </main>
     ); // Error state
 
@@ -38,7 +41,7 @@ export default function Home() {
                 Participate in Web3 bounties and earn tokens.
               </p>
             </div>
-            <CreateBountyModal />
+            {ready && <CreateBountyModal />}
           </div>
 
           <hr className="mr-4 border-muted-foreground/15" />

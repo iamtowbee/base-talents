@@ -6,6 +6,7 @@ import { Bounty } from "@/models/Bounty"; // Import the Bounty interface
 import { formatDueDate } from "@/utils/date-format";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import ApplyBountyModal from "./ApplyBountyModal";
 
 const BountyFullLayout: React.FC<Bounty> = ({
   _id,
@@ -47,12 +48,7 @@ const BountyFullLayout: React.FC<Bounty> = ({
             <p className="text-left text-sm">{details}</p>
           </div>
           <div>
-            <Button
-              variant="link"
-              className="text-[#304FEC] font-semibold text-sm p-0"
-            >
-              Apply for bounty
-            </Button>
+            <ApplyBountyModal />
           </div>
         </div>
       </div>
