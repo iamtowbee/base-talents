@@ -29,13 +29,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import FundAccount  from "@/components/FundAccount";
-import { SubmitButton } from "@/components/SubmitButton";
+import SubmitButton from "@/components/SubmitButton";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [bountySaved, setBountySaved] = React.useState(false);
+
+  let formData: any;
 
   const { toast } = useToast();
 
@@ -47,12 +50,13 @@ export default function CreateBountyModal() {
     event.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(event.currentTarget);
+    formData = new FormData(event.currentTarget);
     const bountyData = {
       title: formData.get("title") as string,
       details: formData.get("details") as string,
       rewardAmount: formData.get("reward-amount") as string,
       rewardToken: formData.get("reward-token") as string,
+      numOfClaims: formData.get("number-of-claims") as string,
       endsOn: date?.toISOString(),
     };
 
@@ -72,7 +76,10 @@ export default function CreateBountyModal() {
         });
         // Reset form or close modal here
         setDate(undefined); // Reset date
-        setModalOpen(false); // Close modal
+        // setModalOpen(false); // Close modal
+        setTimeout(() => {
+          setBountySaved(true);
+        }, 2000);
       } else {
         throw new Error(`API response not OK: ${response.text()}`);
       }
@@ -85,6 +92,7 @@ export default function CreateBountyModal() {
       });
     } finally {
       setIsSubmitting(false);
+      console.log(formData);
     }
   };
 
@@ -120,7 +128,7 @@ export default function CreateBountyModal() {
             />
           </div>
           <div className="space-y-0 flex items-center justify-between gap-4">
-            <div>
+            <div className="space-y-2">
               <Label htmlFor="reward-amount">Reward Amount</Label>
               <Input
                 id="reward-amount"
@@ -130,20 +138,27 @@ export default function CreateBountyModal() {
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="reward-token">Reward Token</Label>
+            <div className="space-y-2">
+              <Label htmlFor="number-of-claims">Number of Claims</Label>
               <Input
-                id="reward-token"
-                name="reward-token"
-                placeholder="Enter reward token"
-                className="placeholder:normal-case uppercase"
+                id="number-of-claims"
+                name="number-of-claims"
+                type="number"
+                placeholder="Enter number of claims"
                 required
               />
             </div>
           </div>
-          {/* <div className="space-y-2">
-            
-          </div> */}
+          <div className="space-y-2">
+            <Label htmlFor="reward-token">Reward Token Address</Label>
+            <Input
+              id="reward-token"
+              name="reward-token"
+              placeholder="Enter reward token contract"
+              className="normal-case"
+              required
+            />
+          </div>
           <div className="space-y-2">
             <Label htmlFor="ends-on">Ends On</Label>
             <Popover>
@@ -187,6 +202,17 @@ export default function CreateBountyModal() {
               </PopoverContent>
             </Popover>
           </div>
+          {bountySaved ? (
+            <SubmitButton
+              token={`0xdac17f958d2ee523a2206206994597c13d831ec7`}
+              amount={1000}
+              claims={10}
+            />
+          ) : (
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Creating..." : "Create Bounty"}
+            </Button>
+          )}
           {/* TODO:  Include the variables from TODO here
 
             <FundAccount amount= />
