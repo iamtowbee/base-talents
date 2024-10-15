@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import Loading from "./loading";
 import Header from "@/components/Header";
-import Providers from "./providers";
+import Providers from "@/app/providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -27,13 +27,13 @@ export default function RootLayout({
         className={`${inter.className} antialiased`}
         style={{ scrollBehavior: "smooth" }}
       >
-        <Providers>
-          <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
+          <Providers>
             <Header />
             {children}
             <Toaster />
-          </Suspense>
-        </Providers>
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );

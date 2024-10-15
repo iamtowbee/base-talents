@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-
-import AvatarContainer from "@/components/AvatarContainer";
-
-// import Image from "next/image";
+import AvatarContainer from "./AvatarContainer";
 
 const Header = () => {
   return (

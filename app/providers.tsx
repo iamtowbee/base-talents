@@ -18,7 +18,7 @@ function Providers({ children }: Props) {
 
   return (
     <PrivyProvider
-      appId={NEXT_PUBLIC_PRIVY_APP_ID!}
+      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
       config={{
         // Customize Privy's appearance in your app
         appearance: {
@@ -40,13 +40,14 @@ function Providers({ children }: Props) {
             connectionOptions: "smartWalletOnly",
           },
         },
-      }}>
+      }}
+    >
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <OnchainKitProvider apiKey={NEXT_PUBLIC_CDP_API_KEY} chain={base}>
             <RainbowKitProvider modalSize="compact">
               {children}
-           </RainbowKitProvider>
+            </RainbowKitProvider>
           </OnchainKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

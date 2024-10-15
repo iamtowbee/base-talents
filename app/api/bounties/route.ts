@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { createBounty, Bounty } from "@/models/Bounty";
 
@@ -9,10 +8,10 @@ export async function GET() {
 
     const bounties = await db.collection<Bounty>("bounties").find({}).toArray();
 
-    return NextResponse.json(bounties, { status: 200 });
+    return Response.json(bounties, { status: 200 });
   } catch (error) {
     console.error("Error fetching bounties:", error);
-    return NextResponse.json(
+    return Response.json(
       { message: "Error fetching bounties" },
       { status: 500 }
     );
@@ -37,15 +36,12 @@ export async function POST(request: Request) {
 
     const result = await db.collection<Bounty>("bounties").insertOne(bounty);
 
-    return NextResponse.json(
+    return Response.json(
       { message: "Bounty created successfully", id: result.insertedId },
       { status: 201 }
     );
   } catch (error) {
     console.error("Error creating bounty:", error);
-    return NextResponse.json(
-      { message: "Error creating bounty" },
-      { status: 500 }
-    );
+    return Response.json({ message: "Error creating bounty" }, { status: 500 });
   }
 }
