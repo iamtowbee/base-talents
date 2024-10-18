@@ -13,7 +13,7 @@ import type {
   TransactionError,
   TransactionResponse,
 } from '@coinbase/onchainkit/transaction';
-import type { Address, ContractFunctionParameters } from 'viem';
+import type { ContractFunctionParameters } from 'viem';
 
 export default function FundAccount({ amount }: { amount: number }) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
