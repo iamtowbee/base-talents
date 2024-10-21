@@ -21,47 +21,44 @@ interface PayUserButtonProps {
     amount: number;
   }
 
-export default function FundAccount({ recepients, token, amount }: PayUserButtonProps) {
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+export default function FundAccount({
+  recepients,
+  token,
+  amount,
+}: PayUserButtonProps) {
+  const contracts = [
+    {
+      address: PathnerAddress,
+      abi: PathnerABI,
+      functionName: "payBounty",
+      args: [recepients, token, amount],
+    },
+  ] as unknown as ContractFunctionParameters[];
 
-    const contracts = [
-      {
-        address: PathnerAddress,
-        abi: PathnerABI,
-        functionName: "payBounty",
-        args: [ recepients, token, amount ],
-      },
-    ] as unknown as ContractFunctionParameters[];
-  
-    const handleError = (err: TransactionError) => {
-      console.error('Transaction error:', err);
-    };
-  
-    const handleSuccess = (response: TransactionResponse) => {
-      console.log('Transaction successful', response);
-    };
-  
-    return (
-      <div className="flex w-[450px]">
-        <Transaction
-            contracts={contracts}
-              className="w-[450px]"
-              // capabilities={capabilities}
-              chainId={85432}
-              onError={handleError}
-              onSuccess={handleSuccess} 
+  const handleError = (err: TransactionError) => {
+    console.error("Transaction error:", err);
+  };
 
-              >
-              <TransactionButton
-                className="w-full"
-                disabled={isSubmitting}
-                text="Pay User"
-              />
-              <TransactionStatus>
-              <TransactionStatusLabel />
-              <TransactionStatusAction />
-              </TransactionStatus>
-            </Transaction> 
-      </div>
-    );
+  const handleSuccess = (response: TransactionResponse) => {
+    console.log("Transaction successful", response);
+  };
+
+  return (
+    <div className="flex w-[450px]">
+      <Transaction
+        contracts={contracts}
+        className="w-[450px]"
+        // capabilities={capabilities}
+        chainId={85432}
+        onError={handleError}
+        onSuccess={handleSuccess}
+      >
+        <TransactionButton className="w-full" text="Pay User" />
+        <TransactionStatus>
+          <TransactionStatusLabel />
+          <TransactionStatusAction />
+        </TransactionStatus>
+      </Transaction>
+    </div>
+  );
 }
