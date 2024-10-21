@@ -196,12 +196,7 @@ export default function CreateBountyModal() {
                   </SelectContent>
                 </Select>
                 <div className="rounded-md border">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
+                  <Calendar mode="single" selected={date} onSelect={setDate} />
                 </div>
               </PopoverContent>
             </Popover>
