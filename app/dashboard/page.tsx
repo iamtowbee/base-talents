@@ -8,6 +8,7 @@ import BountyFullLayout from "@/components/BountyFullLayout";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Bounty } from "@/models/Bounty";
+import { Calendar } from "@/components/ui/calendar";
 
 export default function Dashboard() {
   const { user, ready } = usePrivy();

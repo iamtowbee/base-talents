@@ -74,6 +74,9 @@ importers:
       react:
         specifier: ^18
         version: 18.3.1
+      react-day-picker:
+        specifier: ^9.1.4
+        version: 9.1.4(react@18.3.1)
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
@@ -772,6 +775,9 @@ packages:
 
   '@coinbase/wallet-sdk@4.0.4':
     resolution: {integrity: sha512-74c040CRnGhfRjr3ArnkAgud86erIqdkPHNt5HR1k9u97uTIZCJww9eGYT67Qf7gHPpGS/xW8Be1D4dvRm63FA==}
+
+  '@date-fns/tz@1.1.2':
+    resolution: {integrity: sha512-Xmg2cPmOPQieCLAdf62KtFPU9y7wbQDq1OAzrs/bEQFvhtCPXDiks1CHDE/sTXReRfh/MICVkw/vY6OANHUGiA==}
 
   '@emotion/hash@0.9.2':
     resolution: {integrity: sha512-MyqliTZGuOm3+5ZRSaaBGP3USLw6+EGykkwZns2EPC5g8jJ4z9OrdZY9apkl3+UP9+sdz76YYkwCKP5gh8iY3g==}
@@ -5178,6 +5184,12 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
+  react-day-picker@9.1.4:
+    resolution: {integrity: sha512-S5ixQz32vl9OTvtu8STGhZH6yQnqAqWTTeiTBgaYNgrVda5+cAUL3+cgvozG3BUruiXETAnVXDFkFmoB2brkwQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: '>=16.8.0'
+
   react-device-detect@2.2.3:
     resolution: {integrity: sha512-buYY3qrCnQVlIFHrC5UcUoAj7iANs/+srdkwsnNjI7anr3Tt7UY6MqNxtMLlr0tMBied0O49UZVK8XKs3ZIiPw==}
     peerDependencies:
@@ -7252,6 +7264,8 @@ snapshots:
       keccak: 3.0.4
       preact: 10.24.2
       sha.js: 2.4.11
+
+  '@date-fns/tz@1.1.2': {}
 
   '@emotion/hash@0.9.2': {}
 
@@ -13073,6 +13087,12 @@ snapshots:
       safe-buffer: 5.2.1
 
   range-parser@1.2.1: {}
+
+  react-day-picker@9.1.4(react@18.3.1):
+    dependencies:
+      '@date-fns/tz': 1.1.2
+      date-fns: 4.1.0
+      react: 18.3.1
 
   react-device-detect@2.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
