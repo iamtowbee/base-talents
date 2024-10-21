@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import CreateBountyModal from "@/components/CreateBountyModal";
 import { Bounty } from "@/models/Bounty";
 import { useBounties } from "@/hooks/use-bounties";
@@ -9,8 +9,13 @@ import { usePrivy } from "@privy-io/react-auth";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { data: bounties, loading, error, retry } = useBounties();
-  const { ready } = usePrivy();
+  const {
+    data: bounties,
+    loading,
+    error,
+    retry,
+  } = useBounties({ type: "all" });
+  const { authenticated } = usePrivy();
 
   if (loading)
     return (
@@ -41,10 +46,10 @@ export default function Home() {
                 Participate in Web3 bounties and earn tokens.
               </p>
             </div>
-            {ready && <CreateBountyModal />}
+            {authenticated && <CreateBountyModal />}
           </div>
 
-          <hr className="mr-4 border-muted-foreground/15" />
+          <hr className="mr-4 border-muted-foreground/25" />
 
           <div className="flex items-center justify-start gap-4">
             <div className="whitespace-nowrap px-4 py-1.5 rounded-full bg-[#272D4D] text-white hover:bg-blue-600/70 cursor-pointer border border-primary text-sm">
@@ -69,17 +74,19 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col py-6 gap-2 ">
-          {bounties.map((bounty: Bounty) => {
+          {(bounties as Bounty[]).map((bounty: Bounty) => {
             return (
               <BountyFullLayout
                 key={bounty._id as unknown as string}
                 _id={bounty._id!.toString()}
                 title={bounty.title}
-                details="Lorem ipsum dolor sit amet"
+                details={bounty.details}
                 endsOn={bounty.endsOn}
+                numOfClaims={bounty.numOfClaims}
                 rewardAmount={bounty.rewardAmount}
                 rewardToken={bounty.rewardToken}
                 createdAt={bounty.createdAt}
+                userId={bounty.userId}
               />
             );
           })}

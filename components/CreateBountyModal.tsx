@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import SubmitButton from "@/components/SubmitButton";
 import { useToast } from "@/hooks/use-toast";
+import { usePrivy } from "@privy-io/react-auth";
 
 export default function CreateBountyModal() {
   const [date, setDate] = React.useState<Date>();
@@ -38,9 +39,11 @@ export default function CreateBountyModal() {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [bountySaved, setBountySaved] = React.useState(false);
 
-  let formData: any;
+  let formData: FormData;
 
   const { toast } = useToast();
+
+  const { user } = usePrivy();
 
   //TODO
   // So I want to add the bounty data that are stored in caled in handleSubmit in the components: <FundAccountButton> and  <SubmitButton/> that are in the return statements
@@ -57,6 +60,7 @@ export default function CreateBountyModal() {
       rewardAmount: formData.get("reward-amount") as string,
       rewardToken: formData.get("reward-token") as string,
       numOfClaims: formData.get("number-of-claims") as string,
+      userId: user?.id.split(":")[2],
       endsOn: date?.toISOString(),
     };
 
@@ -114,7 +118,7 @@ export default function CreateBountyModal() {
             <Input
               id="title"
               name="title"
-              placeholder="Enter task description"
+              placeholder="Enter task title"
               required
             />
           </div>

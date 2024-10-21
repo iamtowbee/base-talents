@@ -19,22 +19,32 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CgSpinnerAlt } from "react-icons/cg";
+import Link from "next/link";
 
-const AvatarContainer = () => {
+const UserContainer = () => {
   const { ready, authenticated, login, logout, user } = usePrivy();
 
   // Disable login when Privy is not ready or the user is already authenticated
   const disableLogin = !ready || (ready && authenticated);
 
   return (
-    <div className="flex gap-2 items-center justify-between px-2">
+    <div className="flex gap-4 items-center justify-between px-2">
+      {authenticated && (
+        <Link
+          href="/dashboard"
+          className="inline-flex items-center px-1 text-sm font-medium"
+        >
+          Dashboard
+        </Link>
+      )}
+
       {ready ? (
         authenticated ? (
           <Popover>
             <p className="text-sm font-semibold text-primary/80">$0</p>
             <PopoverTrigger className="bg-gradient-to-bl from-purple-700 via-blue-700 to-purple-500 w-10 h-10 rounded-full text-lg font-semibold flex items-center justify-center text-white border border-accent-hover">
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn" />
+                <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>
                   {user!.email?.address.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
@@ -55,7 +65,7 @@ const AvatarContainer = () => {
                 </Button>
               </TooltipTrigger>
               <TooltipContent className="mt-2" side="bottom">
-                <p className="text-primary">Login</p>
+                <p className="text-white">Login</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -67,4 +77,4 @@ const AvatarContainer = () => {
   );
 };
 
-export default AvatarContainer;
+export default UserContainer;

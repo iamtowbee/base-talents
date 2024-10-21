@@ -1,12 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { addDays, format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -16,27 +12,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import SubmitButton from "./SubmitButton";
 
 export default function ApplyBountyModal() {
-  const [date, setDate] = React.useState<Date>();
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [applyModalOpen, setApplyModalOpen] = React.useState(false);
-
-  const { toast } = useToast();
 
   //TODO
   // So I want to add the bounty data that are stored in caled in handleSubmit in the components: <FundAccountButton> and  <SubmitButton/> that are in the return statements
@@ -110,7 +88,7 @@ export default function ApplyBountyModal() {
             <Input
               id="details"
               name="details"
-              placeholder="Enter task description"
+              placeholder="Enter deliverable link"
               required
             />
           </div>

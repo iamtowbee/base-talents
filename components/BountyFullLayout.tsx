@@ -5,11 +5,9 @@ import React from "react";
 import { Bounty } from "@/models/Bounty"; // Import the Bounty interface
 import { formatDueDate } from "@/utils/date-format";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import ApplyBountyModal from "./ApplyBountyModal";
 
 const BountyFullLayout: React.FC<Bounty> = ({
-  _id,
   title,
   details,
   rewardAmount,
@@ -34,7 +32,7 @@ const BountyFullLayout: React.FC<Bounty> = ({
         <div className="flex flex-col gap-4 items-start">
           <div className="flex flex-col gap-2">
             <div className="font-medium">{title}</div>
-            <div className="text-muted font-light text-sm">Lorem ipsum</div>
+            <div className="text-xs text-[#A4ACB9]">Lorem ipsum</div>
             <div className="flex gap-4 items-center">
               <div className="text-xs text-[#068F4DD2] bg-[#2B3E35D2] px-2.5 py-1.5 rounded-[40px]">
                 Bounty

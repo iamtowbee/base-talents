@@ -6,9 +6,13 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db("bountyApp");
 
-    const bounties = await db.collection<Bounty>("bounties").find({}).toArray();
+    const bounties = await db
+      .collection<Bounty>("bounties")
+      .find({})
+      .sort({ createdAt: -1 })
+      .toArray();
 
-    return Response.json(bounties, { status: 200 });
+    return Response.json(bounties);
   } catch (error) {
     console.error("Error fetching bounties:", error);
     return Response.json(
@@ -24,13 +28,23 @@ export async function POST(request: Request) {
     const db = client.db("bountyApp");
 
     const body = await request.json();
-    const { title, details, rewardAmount, rewardToken, endsOn } = body;
+    const {
+      title,
+      details,
+      rewardAmount,
+      rewardToken,
+      numOfClaims,
+      userId,
+      endsOn,
+    } = body;
 
     const bounty = createBounty({
       title,
       details,
       rewardAmount: parseFloat(rewardAmount),
       rewardToken,
+      numOfClaims,
+      userId,
       endsOn: new Date(endsOn),
     });
 

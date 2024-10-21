@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import AvatarContainer from "./AvatarContainer";
+import UserContainer from "@/components/UserContainer";
 
 const Header = () => {
   return (
@@ -45,7 +45,7 @@ const Header = () => {
         <Link href="#">Subscribe</Link>
       </div>
 
-      <AvatarContainer />
+      <UserContainer />
     </header>
   );
 };

@@ -6,7 +6,9 @@ export interface Bounty {
   details: string;
   rewardAmount: number;
   rewardToken: string;
+  numOfClaims: number;
   endsOn: Date;
+  userId: string;
   createdAt: Date;
 }
 

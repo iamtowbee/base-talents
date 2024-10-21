@@ -18,7 +18,7 @@ function Providers({ children }: Props) {
 
   return (
     <PrivyProvider
-      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
+      appId={NEXT_PUBLIC_PRIVY_APP_ID!}
       config={{
         // Customize Privy's appearance in your app
         appearance: {
