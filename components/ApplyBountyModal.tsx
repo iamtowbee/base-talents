@@ -14,11 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function ApplyBountyModal() {
-  const [applyModalOpen, setApplyModalOpen] = React.useState(false);
-
-  //TODO
-  // So I want to add the bounty data that are stored in caled in handleSubmit in the components: <FundAccountButton> and  <SubmitButton/> that are in the return statements
-  //Please help me provide them and pass it to the those components. They are 3 variables: reward token (address), reward amount (number) and number of claims (number).
+  const [applyModalOpen, setApplyModalOpen] = React.useState(false);\
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
@@ -92,11 +89,9 @@ export default function ApplyBountyModal() {
               required
             />
           </div>
-
-          {/* TODO:  Include the variables from TODO here
-            <FundAccount amount= />
-          */}
-          {/* <SubmitButton token={} amount={} claims={} /> */}
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Applying..." : "Submit"}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

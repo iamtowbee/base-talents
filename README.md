@@ -3,3 +3,7 @@ Base Talents is an onchain builder's app. It matches African builders to opportu
 
 ## Use Case
 This helps us bring more talents onchain as talent is equally distributed but oppurtunity is not.
+
+## Deployment
+The contract was deployed on the Base Sepolia with the contract address:
+``` CA: 0x1B52C263df23592b244f888d98Fc05d5a99F39e1 ```

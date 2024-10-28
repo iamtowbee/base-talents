@@ -42,10 +42,13 @@ const config: HardhatUserConfig = {
       gasPrice: 1000000000,
     },
   },
+  sourcify: {
+    enabled: true
+  },
   etherscan: {
     //apiKey: process.env.ETHERSCAN_KEY,
     apiKey: {
-     "base-sepolia": "PLACEHOLDER_STRING"
+     "base-sepolia": "PLACEHOLDER_STRING", //process.env.BASESCAN_KEY,
     },
     customChains: [
       {
