@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function ApplyBountyModal() {
-  const [applyModalOpen, setApplyModalOpen] = React.useState(false);\
+  const [applyModalOpen, setApplyModalOpen] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
