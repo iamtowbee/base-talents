@@ -28,7 +28,15 @@ export default function ApplyBountyModal({ bountyId }: ApplyBountyModalProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+  const { user } = usePrivy();
+  const { toast } = useToast();
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const submissionLink = formData.get("details") as string;
     const formData = new FormData(event.currentTarget);
     const submissionLink = formData.get("details") as string;
 
@@ -44,7 +52,39 @@ export default function ApplyBountyModal({ bountyId }: ApplyBountyModalProps) {
           submissionLink,
         }),
       });
+    try {
+      const response = await fetch("/api/bounty-applications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bountyId,
+          userId: user?.id,
+          submissionLink,
+        }),
+      });
 
+      if (response.ok) {
+        toast({
+          title: "Application Submitted",
+          description: "Your application has been successfully submitted.",
+        });
+        setApplyModalOpen(false);
+      } else {
+        throw new Error("Failed to submit application");
+      }
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      toast({
+        title: "Error",
+        description: "Failed to submit application. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
       if (response.ok) {
         toast({
           title: "Application Submitted",
@@ -81,7 +121,9 @@ export default function ApplyBountyModal({ bountyId }: ApplyBountyModalProps) {
           <DialogTitle>Apply for Bounty</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
+            <Label htmlFor="details">Bounty Submission Link</Label>
             <Label htmlFor="details">Bounty Submission Link</Label>
             <Input
               id="details"
@@ -91,6 +133,7 @@ export default function ApplyBountyModal({ bountyId }: ApplyBountyModalProps) {
             />
           </div>
           <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? "Applying..." : "Submit"}
             {isSubmitting ? "Applying..." : "Submit"}
           </Button>
         </form>
