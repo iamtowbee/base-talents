@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { usePrivy } from "@privy-io/react-auth";
+import { useToast } from "@/components/ui/use-toast";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,54 +15,56 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function ApplyBountyModal() {
+interface ApplyBountyModalProps {
+  bountyId: string;
+}
+
+export default function ApplyBountyModal({ bountyId }: ApplyBountyModalProps) {
   const [applyModalOpen, setApplyModalOpen] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const { user } = usePrivy();
+  const { toast } = useToast();
 
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   setIsSubmitting(true);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
 
-  //   const formData = new FormData(event.currentTarget);
-  //   const bountyData = {
-  //     title: formData.get("title") as string,
-  //     details: formData.get("details") as string,
-  //     rewardAmount: formData.get("reward-amount") as string,
-  //     rewardToken: formData.get("reward-token") as string,
-  //     endsOn: date?.toISOString(),
-  //   };
+    const formData = new FormData(event.currentTarget);
+    const submissionLink = formData.get("details") as string;
 
-  //   try {
-  //     const response = await fetch("/api/bounties", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(bountyData),
-  //     });
+    try {
+      const response = await fetch("/api/bounty-applications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bountyId,
+          userId: user?.id,
+          submissionLink,
+        }),
+      });
 
-  //     if (response.ok) {
-  //       toast({
-  //         title: "Bounty created",
-  //         description: "Your bounty has been successfully created.",
-  //       });
-  //       // Reset form or close modal here
-  //       setDate(undefined); // Reset date
-  //       setModalOpen(false); // Close modal
-  //     } else {
-  //       throw new Error(`API response not OK: ${response.text()}`);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creating bounty:", error);
-  //     toast({
-  //       title: "Error",
-  //       description: `Failed to create bounty. Please try again. ${error}`,
-  //       variant: "destructive",
-  //     });
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
+      if (response.ok) {
+        toast({
+          title: "Application Submitted",
+          description: "Your application has been successfully submitted.",
+        });
+        setApplyModalOpen(false);
+      } else {
+        throw new Error("Failed to submit application");
+      }
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      toast({
+        title: "Error",
+        description: "Failed to submit application. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Dialog open={applyModalOpen} onOpenChange={setApplyModalOpen}>
@@ -76,12 +80,9 @@ export default function ApplyBountyModal() {
         <DialogHeader>
           <DialogTitle>Apply for Bounty</DialogTitle>
         </DialogHeader>
-        <form
-          // onSubmit={handleSubmit}
-          className="space-y-4"
-        >
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="task">Bounty Submission Link</Label>
+            <Label htmlFor="details">Bounty Submission Link</Label>
             <Input
               id="details"
               name="details"
@@ -90,7 +91,7 @@ export default function ApplyBountyModal() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Applying..." : "Submit"}
+            {isSubmitting ? "Applying..." : "Submit"}
           </Button>
         </form>
       </DialogContent>
