@@ -8,6 +8,7 @@ import Image from "next/image";
 import ApplyBountyModal from "./ApplyBountyModal";
 
 const BountyFullLayout: React.FC<Bounty> = ({
+  _id,
   title,
   details,
   rewardAmount,
@@ -46,7 +47,7 @@ const BountyFullLayout: React.FC<Bounty> = ({
             <p className="text-left text-sm">{details}</p>
           </div>
           <div>
-            <ApplyBountyModal />
+            <ApplyBountyModal bountyId={(_id as string)!} />
           </div>
         </div>
       </div>
